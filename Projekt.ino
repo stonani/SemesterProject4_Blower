@@ -5,7 +5,7 @@ const int StartButtonIn = A3;
 const int StopButtonIn = A5;
 const int FanOut = 8;
 
-bool IsTheBlowerOn;
+bool buttonState;
 
 
 
@@ -14,7 +14,7 @@ void setup()
     ControlPanel.SetUp(StartButtonIn,StopButtonIn);
     Blower.SetUp(FanOut);
 
-    IsTheBlowerOn=false;
+    buttonState=false;
 }
 
 void loop()
@@ -22,15 +22,15 @@ void loop()
 
   if(ControlPanel.IsStartButtonPressed())
   {
-    IsTheBlowerOn=true;
+    buttonState=true;
   }
   
   if(ControlPanel.IsStopButtonPressed())
   {
-    IsTheBlowerOn=false;
+    buttonState=false;
   }
   
-  if(IsTheBlowerOn)
+  if(buttonState)
   {
     Blower.StartBlower();
   }

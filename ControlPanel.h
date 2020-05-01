@@ -1,6 +1,4 @@
 
-bool _systemState;
-
 class ControlPanel {  
   public:  
     int StartButtonPin;    
@@ -16,9 +14,11 @@ class ControlPanel {
     {  
       if(digitalRead(StartButtonPin)==HIGH)
       {
-        _systemState=true;
-      } 
-      return _systemState;
+        return true;
+      }
+      else{
+        return false;
+      }
     }
 
 
@@ -26,9 +26,11 @@ class ControlPanel {
     {  
       if(digitalRead(StopButtonPin)==HIGH)
       {
-        _systemState=false;
+         return true;
       }
-      return _systemState;
+      else{
+        return false;
+      }
     }
 };
 
