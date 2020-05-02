@@ -4,20 +4,20 @@
 #include <Adafruit_Sensor.h>
 #include <DHT.h>
 #include <DHT_U.h>
+
 #define DHTTYPE    DHT22
 #define DHTPIN1 12 
 #define DHTPIN2 13 
-DHT_Unified HumiditySensor1(DHTPIN1, DHTTYPE);
-DHT_Unified HumiditySensor2(DHTPIN2, DHTTYPE);
+DHT HumiditySensor1(DHTPIN1, DHTTYPE);
+DHT HumiditySensor2(DHTPIN2, DHTTYPE);
 uint32_t delayMS;
 
 const int _startButtonIn = A3;
 const int _stopButtonIn = A5;
 const int _fanSignalOut = 8;
 const int _LED2Supply = 0;
-const int _humiditySupply = 0;
 
-bool buttonState; //True = blæseren er tændt
+bool _buttonState; //True = blæseren er tændt
 
 
 
@@ -25,7 +25,7 @@ void setup()
 {
     ControlPanel.SetUp(_startButtonIn,_stopButtonIn);
     Blower.SetUp(_fanSignalOut);
-    buttonState=false;
+    _buttonState=false;
 
     HumiditySensor1.begin();
     HumiditySensor2.begin();
@@ -38,26 +38,23 @@ void loop()
 
   if(ControlPanel.IsStartButtonPressed())//Startknap
   {
-    buttonState=true;
+    _buttonState=true;
   }
   
   if(ControlPanel.IsStopButtonPressed())//Stopknap
   {
-    buttonState=false;
+    _buttonState=false;
   }
 
-  delay(delayMS); //Tempratursensorer
-  sensors_event_t event;
-  HumiditySensor1.humidity().getEvent(&event);
-  HumiditySensor1.humidity().getEvent(&event);
-  if (event.relative_humidity <= event.relative_humidity)
+  delay(delayMS); 
+  if (HumiditySensor1.readHumidity() <= HumiditySensor2.readHumidity())
     {
-        buttonState=false;
+        _buttonState=false;
     }
 
 
    
-  if(buttonState)
+  if(_buttonState)
   {
     Blower.StartBlower();
   }

@@ -21,7 +21,6 @@ class ControlPanel {
       }
     }
 
-
     bool IsStopButtonPressed() 
     {  
       if(digitalRead(_stopButtonPin)==HIGH)
