@@ -1,15 +1,20 @@
 class Blower {  
   public:  
-    int FanPin;      
+    int _fanPin;      
 
-    void Blower::SetUp(int fanpin) 
+    void Blower::SetUp(int _fanPin) 
     {  
-      FanPin=fanpin;
+      _fanPin=_fanPin;
     }
 
     void Blower::StartBlower() 
     {  
-      analogWrite(FanPin,255);
+      analogWrite(_fanPin,255);
+    }
+
+    void Blower::StopBlower() 
+    {  
+      analogWrite(_fanPin,0);
     }
 };
 

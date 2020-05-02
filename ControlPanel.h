@@ -1,18 +1,18 @@
 
 class ControlPanel {  
   public:  
-    int StartButtonPin;    
-    int StopButtonPin;   
+    int _startButtonPin;    
+    int _stopButtonPin;   
 
     void ControlPanel::SetUp(int startpin, int stoppin)
     {
-      StartButtonPin= startpin;
-      StopButtonPin= stoppin;
+      _startButtonPin= startpin;
+      _stopButtonPin= stoppin;
     }
 
     bool ControlPanel::IsStartButtonPressed() 
     {  
-      if(digitalRead(StartButtonPin)==HIGH)
+      if(digitalRead(_startButtonPin)==HIGH)
       {
         return true;
       }
@@ -24,7 +24,7 @@ class ControlPanel {
 
     bool ControlPanel::IsStopButtonPressed() 
     {  
-      if(digitalRead(StopButtonPin)==HIGH)
+      if(digitalRead(_stopButtonPin)==HIGH)
       {
          return true;
       }
