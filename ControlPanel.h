@@ -4,13 +4,13 @@ class ControlPanel {
     int _startButtonPin;    
     int _stopButtonPin;   
 
-    void ControlPanel::SetUp(int startpin, int stoppin)
+    void SetUp(int startpin, int stoppin)
     {
       _startButtonPin= startpin;
       _stopButtonPin= stoppin;
     }
 
-    bool ControlPanel::IsStartButtonPressed() 
+    bool IsStartButtonPressed() 
     {  
       if(digitalRead(_startButtonPin)==HIGH)
       {
@@ -22,7 +22,7 @@ class ControlPanel {
     }
 
 
-    bool ControlPanel::IsStopButtonPressed() 
+    bool IsStopButtonPressed() 
     {  
       if(digitalRead(_stopButtonPin)==HIGH)
       {
