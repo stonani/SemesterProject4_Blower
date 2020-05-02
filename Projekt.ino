@@ -21,6 +21,7 @@ bool _buttonState; //True = blæseren er tændt
 
 
 
+
 void setup()
 {
     ControlPanel.SetUp(_startButtonIn,_stopButtonIn);
@@ -54,6 +55,11 @@ void loop()
 
 
    
+  OnOffFan();
+}
+
+void OnOffFan()
+{   
   if(_buttonState)
   {
     Blower.StartBlower();
