@@ -6,8 +6,8 @@
 #include <DHT_U.h>
 
 #define DHTTYPE    DHT22
-#define DHTPIN1 12 
-#define DHTPIN2 13 
+#define DHTPIN1 3 
+#define DHTPIN2 4 
 DHT HumiditySensor1(DHTPIN1, DHTTYPE);
 DHT HumiditySensor2(DHTPIN2, DHTTYPE);
 uint32_t delayMS;
@@ -17,13 +17,14 @@ const int _stopButtonIn = A5;
 const int _fanSignalOut = 8;
 const int _LED2Supply = 0;
 
-bool _buttonState; //True = blæseren er tændt
+bool _buttonState; //True = fan is on
 
-
+//Mini kommentar
 
 
 void setup()
 {
+    Serial.begin(9600);
     ControlPanel.SetUp(_startButtonIn,_stopButtonIn);
     Blower.SetUp(_fanSignalOut);
     _buttonState=false;
@@ -37,28 +38,26 @@ void setup()
 void loop()
 {
 
-  if(ControlPanel.IsStartButtonPressed())//Startknap
+  if(ControlPanel.IsStartButtonPressed())//StartButton
   {
     _buttonState=true;
   }
   
-  if(ControlPanel.IsStopButtonPressed())//Stopknap
+  if(ControlPanel.IsStopButtonPressed())//StopButton
   {
     _buttonState=false;
   }
 
   delay(delayMS); 
-  if (HumiditySensor1.readHumidity() <= HumiditySensor2.readHumidity())
+  if (HumiditySensor1.readHumidity() <= HumiditySensor2.readHumidity())//HumiditySensor
     {
         _buttonState=false;
     }
-
-
    
-  OnOffFan();
+  FanSetting();
 }
 
-void OnOffFan()
+void FanSetting()
 {   
   if(_buttonState)
   {
