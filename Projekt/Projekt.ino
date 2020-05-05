@@ -14,7 +14,7 @@ uint32_t delayMS;
 
 const int _startButtonIn = A3;
 const int _stopButtonIn = A5;
-const int _fanSignalOut = 8;
+const int _fanSignalOut = 0;
 const int _LED2Supply = 0;
 
 bool _buttonState; //True = fan is on
