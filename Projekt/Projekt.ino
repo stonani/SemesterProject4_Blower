@@ -48,7 +48,7 @@ void loop()
     _buttonState=false;
   }
 
-  delay(delayMS); 
+  //delay(delayMS); 
   if (HumiditySensor1.readHumidity() <= HumiditySensor2.readHumidity())//HumiditySensor
     {
         _buttonState=false;

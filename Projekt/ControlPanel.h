@@ -7,12 +7,14 @@ class ControlPanel {
     void SetUp(int startpin, int stoppin)
     {
       _startButtonPin= startpin;
+      pinMode(_startButtonPin,INPUT_PULLUP);
       _stopButtonPin= stoppin;
     }
 
     bool IsStartButtonPressed() 
     {  
-      if(digitalRead(_startButtonPin)==HIGH)
+      Serial.println(analogRead(A1));
+      if(analogRead(_startButtonPin)>500)
       {
         return true;
       }

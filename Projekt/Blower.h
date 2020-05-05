@@ -2,9 +2,10 @@ class Blower {
   public:  
     int _fanPin;      
 
-    void SetUp(int _fanPin) 
+    void SetUp(int fanPin) 
     {  
-      _fanPin=_fanPin;
+      _fanPin=fanPin;
+      pinMode(_fanPin,OUTPUT);
     }
 
     void StartBlower() 
