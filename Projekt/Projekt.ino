@@ -1,6 +1,7 @@
 #include "Blower.h"
 #include "ControlPanel.h"
 #include "HumiditySensor.h"
+#include "Indicator.h"
 
 //Pin configuration
 const int _startButtonIn = A3;
