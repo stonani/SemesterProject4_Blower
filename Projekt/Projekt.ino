@@ -16,7 +16,6 @@ const int _fanSignalOut = 0;
 const int _Sensor1Out = A14;
 const int _Sensor2Out = A15;
 
-const int _LED1Out = 1;
 const int _LED2Out = 2;
 
 
@@ -58,7 +57,8 @@ void loop()
     Blower.StartBlower();
     Indicator.TurnOn();
   }
-  else{
+  else
+  {
     Blower.StopBlower();
     Indicator.TurnOff();
   }
