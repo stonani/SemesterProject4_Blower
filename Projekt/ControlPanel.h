@@ -1,20 +1,21 @@
 
 class ControlPanel {  
   public:  
-    int _startButtonPin;    
-    int _stopButtonPin;   
+    int _startButtonIn;    
+    int _stopButtonIn;   
 
-    void SetUp(int startpin, int stoppin)
+    void SetUp(int startButtonIn, int stopButtonIn, int startButtonOut, int stopButtonOut)
     {
-      _startButtonPin= startpin;
-      pinMode(_startButtonPin,INPUT_PULLUP);
-      _stopButtonPin= stoppin;
+      _startButtonIn= startButtonIn;
+      _stopButtonIn= stopButtonIn;
+      analogWrite(startButtonOut,255);
+      analogWrite(stopButtonOut,255);
     }
 
     bool IsStartButtonPressed() 
     {  
       Serial.println(analogRead(A1));
-      if(analogRead(_startButtonPin)>500)
+      if(analogRead(_startButtonIn)>500)
       {
         return true;
       }
@@ -25,7 +26,7 @@ class ControlPanel {
 
     bool IsStopButtonPressed() 
     {  
-      if(digitalRead(_stopButtonPin)==HIGH)
+      if(digitalRead(_stopButtonIn)==HIGH)
       {
          return true;
       }
