@@ -43,7 +43,7 @@ class SystemControl {
      _humiditySensor -> SetUp(_Sensor1Out,_Sensor2Out);
      _indicator -> SetUp(_LED2Out);
     
-      _buttonState=false;
+     _buttonState=false;
   }
 
   void Loop()

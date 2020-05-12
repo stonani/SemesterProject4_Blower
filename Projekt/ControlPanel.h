@@ -60,7 +60,9 @@ class FakeControlPanel : public IControlPanel{
     int controlPanelCounter = 0;
     int startCounter = 0;
     int stopCounter = 0;
-    int returnValue = 0;
+    bool returnValueStart = false;
+    bool returnValueStop = false;
+
   
     virtual void SetUp(int startButtonIn, int stopButtonIn, int startButtonOut, int stopButtonOut)
     {
@@ -72,12 +74,12 @@ class FakeControlPanel : public IControlPanel{
     virtual bool IsStartButtonPressed() 
     {  
       startCounter++;
-      return returnValue;
+      return returnValueStart;
     }
 
     virtual bool IsStopButtonPressed() 
     {  
       stopCounter++;
-      return returnValue;
+      return returnValueStop;
     }
 };
