@@ -13,6 +13,7 @@ FakeIndicator myIndicator;
 
 int N=0;
 
+<<<<<<< HEAD
 
 class StartButtonNotPressed_stateFalse_IsStartButtonPressedOneCall: public TestOnce {
   protected:
@@ -45,6 +46,7 @@ class StartButtonNotPressed_StateFalse_StopBlowerTurnOffIndicator: public TestOn
  
 };
 testF(StartButtonNotPressed_StateFalse_StopBlowerTurnOffIndicator,t1) {
+
  
   assertEqual(myBlower.stopCounter,1); 
   assertEqual(myIndicator.OFFcounter,1);
