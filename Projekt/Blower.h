@@ -1,9 +1,22 @@
+class IBlower {  
+  private:  
+    int _fanPin;  
+        
+  public:
+    virtual void SetUp(int fanPin)=0;
 
-class Blower {  
-  public:  
-    int _fanPin;      
+    virtual void StartBlower()=0;
 
-    void SetUp(int fanPin) 
+    virtual void StopBlower()=0;
+};
+
+
+class Blower : public IBlower {  
+  private:  
+    int _fanPin;  
+        
+  public:
+    virtual void SetUp(int fanPin) 
     {  
       TCCR0A = 0;           // undo the configuration done by...
       TCCR0B = 0;           // ...the Arduino core library
@@ -18,15 +31,43 @@ class Blower {
       pinMode(_fanPin,OUTPUT);
     }
 
-    void StartBlower() 
+    virtual void StartBlower() 
     {  
       analogWrite(_fanPin,255);
     }
 
-    void StopBlower() 
+    virtual void StopBlower() 
     {  
       analogWrite(_fanPin,0);
     }
 };
 
-    Blower Blower;
+
+class FakeBlower : public IBlower {  
+  private:  
+    int _fanPin;  
+        
+  public:
+    int blowerCounter = 0;
+    int startCounter = 0;
+    int stopCounter = 0;
+    
+    virtual void SetUp(int fanPin) 
+    {  
+      blowerCounter++;
+      _fanPin=fanPin;
+      pinMode(_fanPin,OUTPUT);
+    }
+
+    virtual void StartBlower() 
+    {  
+      startCounter++;
+     //Serial.println(_fanPin);
+    }
+
+    virtual void StopBlower() 
+    {  
+      stopCounter++;
+      //Serial.print("Intet signal til "+_fanPin);
+    }
+};

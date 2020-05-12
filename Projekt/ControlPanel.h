@@ -1,10 +1,24 @@
-
-class ControlPanel {  
-  public:  
+class IControlPanel {
+  private: 
     int _startButtonIn;    
-    int _stopButtonIn;   
+    int _stopButtonIn; 
+    
+  public:  
+    virtual void SetUp(int startButtonIn, int stopButtonIn, int startButtonOut, int stopButtonOut)=0;
 
-    void SetUp(int startButtonIn, int stopButtonIn, int startButtonOut, int stopButtonOut)
+    virtual bool IsStartButtonPressed()=0;
+
+    virtual bool IsStopButtonPressed()=0; 
+};
+
+
+class ControlPanel : public IControlPanel{  
+  private: 
+    int _startButtonIn;    
+    int _stopButtonIn; 
+    
+  public: 
+    virtual void SetUp(int startButtonIn, int stopButtonIn, int startButtonOut, int stopButtonOut)
     {
       _startButtonIn= startButtonIn;
       _stopButtonIn= stopButtonIn;
@@ -12,21 +26,21 @@ class ControlPanel {
       analogWrite(stopButtonOut,255);
     }
 
-    bool IsStartButtonPressed() 
+    virtual bool IsStartButtonPressed() 
     {  
-      Serial.println(analogRead(A1));
-      if(analogRead(_startButtonIn)>500)
+      if(analogRead(_startButtonIn)>255)
       {
         return true;
-      }
+ 
+     }
       else{
         return false;
       }
     }
 
-    bool IsStopButtonPressed() 
+    virtual bool IsStopButtonPressed() 
     {  
-      if(digitalRead(_stopButtonIn)==HIGH)
+      if(analogRead(_stopButtonIn)>200)
       {
          return true;
       }
@@ -36,4 +50,34 @@ class ControlPanel {
     }
 };
 
-    ControlPanel ControlPanel;
+
+class FakeControlPanel : public IControlPanel{  
+  private: 
+    int _startButtonIn;    
+    int _stopButtonIn; 
+    
+  public: 
+    int controlPanelCounter = 0;
+    int startCounter = 0;
+    int stopCounter = 0;
+  
+    virtual void SetUp(int startButtonIn, int stopButtonIn, int startButtonOut, int stopButtonOut)
+    {
+      controlPanelCounter++;
+      _startButtonIn= startButtonIn;
+      _stopButtonIn= stopButtonIn;
+      //Serial.print("Signal til "+sensor1Out+" og "+sensor2Out);
+    }
+
+    virtual bool IsStartButtonPressed(bool returnValue) 
+    {  
+      startCounter++;
+      return returnValue;
+    }
+
+    virtual bool IsStopButtonPressed(bool returnValue) 
+    {  
+      stopCounter++;
+      return returnValue;
+    }
+};

@@ -1,22 +1,60 @@
+class IIndicator { 
+  private:
+    int _pinOut; 
+     
+  public:   
 
-class Indicator {  
-  public:  
-    int _ledtpin2;   
+    virtual void SetUp(int pinOut)=0;
 
-    void SetUp(int ledtpin2)
+    virtual void TurnOn()=0;
+
+    virtual void TurnOff()=0;
+};
+
+class Indicator : public IIndicator { 
+  private:
+    int _pinOut; 
+     
+  public:   
+
+    virtual void SetUp(int pinOut)
     {
-      _ledtpin2 = ledtpin2;
+      _pinOut = pinOut;
     }
 
-    bool TurnOn() 
+    virtual void TurnOn() 
     {  
-      analogWrite(_ledtpin2,255);
+      analogWrite(_pinOut,255);
     }
 
-    bool TurnOff() 
+    virtual void TurnOff() 
     {  
-      analogWrite(_ledtpin2,0);
+      analogWrite(_pinOut,0);
     }
 };
 
-    Indicator Indicator;
+class FakeIndicator : public IIndicator { 
+  private:
+    int _pinOut; 
+         
+  public:   
+    int ONcounter = 0;
+    int OFFcounter = 0;
+
+    virtual void SetUp(int pinOut)
+    {
+      _pinOut = pinOut;
+    }
+
+    virtual void TurnOn() 
+    {  
+      ONcounter++;
+      //Serial.println("Signal til "+_pinOut);
+    }
+
+    virtual void TurnOff() 
+    {  
+      OFFcounter++;
+      //Serial.println("Intet signal til "+_pinOut);
+    }
+};
