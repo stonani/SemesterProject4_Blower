@@ -24,8 +24,7 @@ class StartButtonNotPressed_stateFalse_IsStartButtonPressedOneCall: public TestO
     }
     
  
-     
-                    
+                         
 };
 
 testF(StartButtonNotPressed_stateFalse_IsStartButtonPressedOneCall,simple1) {
@@ -120,7 +119,7 @@ testF(HumiditySensor1_FloatZero_OneCallRecieved,simple4) {
 class HumiditySensor2_FloatZero_OneCallRecieved: public TestOnce {
   protected:
     void setup() override {
-     void resetCounters();
+     .resetCounters();
      uut.SetUp(&myBlower,&myControlPanel,&myHumiditySensor,&myIndicator);
       uut.Loop();
     }
