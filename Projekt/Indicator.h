@@ -49,12 +49,10 @@ class FakeIndicator : public IIndicator {
     virtual void TurnOn() 
     {  
       ONcounter++;
-      //Serial.println("Signal til "+_pinOut);
     }
 
     virtual void TurnOff() 
     {  
       OFFcounter++;
-      //Serial.println("Intet signal til "+_pinOut);
     }
 };

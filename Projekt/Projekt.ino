@@ -14,6 +14,6 @@ void setup()
 
 void loop()
 {
-  mySystemControl.loop();
+  mySystemControl.Loop();
   delay(100);
 }

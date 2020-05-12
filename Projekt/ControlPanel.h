@@ -40,7 +40,7 @@ class ControlPanel : public IControlPanel{
 
     virtual bool IsStopButtonPressed() 
     {  
-      if(analogRead(_stopButtonIn)>200)
+      if(analogRead(_stopButtonIn)>255)
       {
          return true;
       }
@@ -60,22 +60,22 @@ class FakeControlPanel : public IControlPanel{
     int controlPanelCounter = 0;
     int startCounter = 0;
     int stopCounter = 0;
+    int returnValue = 0;
   
     virtual void SetUp(int startButtonIn, int stopButtonIn, int startButtonOut, int stopButtonOut)
     {
       controlPanelCounter++;
       _startButtonIn= startButtonIn;
       _stopButtonIn= stopButtonIn;
-      //Serial.print("Signal til "+sensor1Out+" og "+sensor2Out);
     }
 
-    virtual bool IsStartButtonPressed(bool returnValue) 
+    virtual bool IsStartButtonPressed() 
     {  
       startCounter++;
       return returnValue;
     }
 
-    virtual bool IsStopButtonPressed(bool returnValue) 
+    virtual bool IsStopButtonPressed() 
     {  
       stopCounter++;
       return returnValue;

@@ -47,20 +47,20 @@ class FakeHumiditySensor : public IHumiditySensor {
     int humidityCouner = 0;
     int sensor1Counter = 0;
     int sensor2Counter = 0;
+    int returnValue = 0;
 
   virtual void SetUp(int sensor1Out, int sensor2Out)
   {
     humidityCouner++;
-    //Serial.println("Signal til "+sensor1Out+" og "+sensor2Out);
   }    
 
-  virtual float GetSensor1Data(float returnValue)
+  virtual float GetSensor1Data()
   {
     sensor1Counter++;
     return returnValue;
   }
 
-  virtual float GetSensor2Data(float returnValue)
+  virtual float GetSensor2Data()
   {
     sensor2Counter++;
     return returnValue;

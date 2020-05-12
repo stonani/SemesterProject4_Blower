@@ -56,18 +56,15 @@ class FakeBlower : public IBlower {
     {  
       blowerCounter++;
       _fanPin=fanPin;
-      pinMode(_fanPin,OUTPUT);
     }
 
     virtual void StartBlower() 
     {  
       startCounter++;
-     //Serial.println(_fanPin);
     }
 
     virtual void StopBlower() 
     {  
       stopCounter++;
-      //Serial.print("Intet signal til "+_fanPin);
     }
 };
