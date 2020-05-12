@@ -12,7 +12,7 @@ SystemControl uut;
 
 test(StartButtonNotPressed_StateFalse_CallStopBlowerTurnOff) {
   uut.SetUp(&myBlower,&myControlPanel,&myHumiditySensor,&myIndicator);
-  
+  uut.Loop();
   assertEqual(1, 1);
 }
 
