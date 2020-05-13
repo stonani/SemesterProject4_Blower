@@ -14,8 +14,12 @@ class IIndicator {
 class Indicator : public IIndicator { 
   private:
     int _pinOut; 
-     
-  public:   
+    IOutput * _output;
+        
+  public:
+  Indicator(IOutput *output){
+    _output = output;
+    }   
 
     virtual void SetUp(int pinOut)
     {
@@ -24,12 +28,12 @@ class Indicator : public IIndicator {
 
     virtual void TurnOn() 
     {  
-      analogWrite(_pinOut,255);
+       _output->Output(_pinOut,255);
     }
 
     virtual void TurnOff() 
     {  
-      analogWrite(_pinOut,0);
+       _output->Output(_pinOut,0);
     }
 };
 

@@ -3,7 +3,14 @@
 #include <AUnit.h>
 using namespace aunit;
 //#include <AUnitVerbose.h>
+#include "Output.h"
+#include "Input.h"
+#include "Blower.h"
+#include "ControlPanel.h"
+#include "HumiditySensor.h"
+#include "Indicator.h"
 #include "SystemControl.h"
+
 FakeBlower myBlower;
 FakeControlPanel myControlPanel;
 FakeHumiditySensor myHumiditySensor;
