@@ -1,8 +1,3 @@
-#include "Blower.h"
-#include "ControlPanel.h"
-#include "HumiditySensor.h"
-#include "Indicator.h"
-
 class SystemControl { 
   private:
   //Pin configuration
@@ -23,18 +18,18 @@ class SystemControl {
   bool _buttonState; //True = fan is on
   
   //Objecter
-  IBlower * _blower;
-  IControlPanel * _controlPanel;
-  IHumiditySensor * _humiditySensor;
-  IIndicator * _indicator;
+  IBlower *_blower;
+  IControlPanel *_controlPanel;
+  IHumiditySensor *_humiditySensor;
+  IIndicator *_indicator;
 
   public:
-  void SetUp(IBlower*obj1,IControlPanel*obj2,IHumiditySensor*obj3,IIndicator*obj4)
+  void SetUp(IBlower *blower,    IControlPanel *controlPanel,    IHumiditySensor *humiditySensor,    IIndicator *indicator)
   {
-    _blower = obj1;
-    _controlPanel = obj2;
-    _humiditySensor = obj3;
-    _indicator = obj4;
+    _blower = blower;
+    _controlPanel = controlPanel;
+    _humiditySensor = humiditySensor;
+    _indicator = indicator;
     
      Serial.begin(9600); //Til testning
     

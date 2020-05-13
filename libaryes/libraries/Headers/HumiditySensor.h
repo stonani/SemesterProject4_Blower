@@ -7,9 +7,11 @@
 DHT HumiditySensor1(DHTPIN1, DHTTYPE);
 DHT HumiditySensor2(DHTPIN2, DHTTYPE);
 
-class IHumiditySensor {  
+class IHumiditySensor {
+  private:
+  IOutput * _output;
+    
   public: 
-
   virtual void SetUp(int sensor1Out, int sensor2Out)=0;   
 
   virtual float GetSensor1Data()=0;
@@ -19,12 +21,18 @@ class IHumiditySensor {
 
 
 class HumiditySensor : public IHumiditySensor {  
-  public: 
+  private:
+  IOutput * _output;
+        
+  public:
+  HumiditySensor(IOutput *output){
+    _output = output;
+    }
 
   virtual void SetUp(int sensor1Out, int sensor2Out)
   {
-     analogWrite(sensor1Out,255);
-     analogWrite(sensor2Out,255);
+     _output->Output(sensor1Out,255);
+     _output->Output(sensor2Out,255);
      
      HumiditySensor1.begin();
      HumiditySensor2.begin();
