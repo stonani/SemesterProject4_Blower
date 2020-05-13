@@ -1,7 +1,9 @@
 class IControlPanel {
   private: 
     int _startButtonIn;    
-    int _stopButtonIn; 
+    int _stopButtonIn;
+     IOutput * _output;
+     IInput *_input;  
     
   public:  
     virtual void SetUp(int startButtonIn, int stopButtonIn, int startButtonOut, int stopButtonOut)=0;
@@ -15,20 +17,26 @@ class IControlPanel {
 class ControlPanel : public IControlPanel{  
   private: 
     int _startButtonIn;    
-    int _stopButtonIn; 
+    int _stopButtonIn;
+    IOutput * _output;
+    IInput *_input; 
     
   public: 
+  ControlPanel(IOutput *output, IInput *input){
+    _output=output;
+    _input=input;
+  }
     virtual void SetUp(int startButtonIn, int stopButtonIn, int startButtonOut, int stopButtonOut)
     {
       _startButtonIn= startButtonIn;
       _stopButtonIn= stopButtonIn;
-      analogWrite(startButtonOut,255);
-      analogWrite(stopButtonOut,255);
+      _output -> Output(startButtonOut,255);
+      _output -> Output(stopButtonOut,255);
     }
 
     virtual bool IsStartButtonPressed() 
     {  
-      if(analogRead(_startButtonIn)>255)
+      if(_input -> Input(_startButtonIn)>255)
       {
         return true;
  
@@ -40,7 +48,7 @@ class ControlPanel : public IControlPanel{
 
     virtual bool IsStopButtonPressed() 
     {  
-      if(analogRead(_stopButtonIn)>255)
+      if(_input -> Input(_stopButtonIn)>255)
       {
          return true;
       }

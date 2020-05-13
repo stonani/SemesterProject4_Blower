@@ -1,9 +1,17 @@
+#include "Output.h"
+#include "Input.h"
+#include "Blower.h"
+#include "ControlPanel.h"
+#include "HumiditySensor.h"
+#include "Indicator.h"
 #include "SystemControl.h"
 
-Blower myBlower;
-ControlPanel myControlPanel;
-HumiditySensor myHumiditySensor;
-Indicator myIndicator;
+AnalogOutput myOutput;
+AnalogInput myInput;
+Blower myBlower(&myOutput);
+ControlPanel myControlPanel(&myOutput, &myInput);
+HumiditySensor myHumiditySensor(&myOutput);
+Indicator myIndicator(&myOutput);
 
 SystemControl mySystemControl;
 

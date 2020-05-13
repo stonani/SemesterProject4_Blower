@@ -1,6 +1,7 @@
-class IBlower {  
+class IBlower {
   private:  
-    int _fanPin;  
+    int _fanPin; 
+    IOutput * _output;
         
   public:
     virtual void SetUp(int fanPin)=0;
@@ -13,9 +14,13 @@ class IBlower {
 
 class Blower : public IBlower {  
   private:  
-    int _fanPin;  
+    int _fanPin; 
+    IOutput * _output;
         
   public:
+  Blower(IOutput *output){
+    _output = output;
+    }
     virtual void SetUp(int fanPin) 
     {  
       TCCR0A = 0;           // undo the configuration done by...
@@ -33,29 +38,27 @@ class Blower : public IBlower {
 
     virtual void StartBlower() 
     {  
-      analogWrite(_fanPin,255);
+      _output->Output(_fanPin,255);
     }
 
     virtual void StopBlower() 
     {  
-      analogWrite(_fanPin,0);
+      _output->Output(_fanPin,0);
     }
 };
 
 
-class FakeBlower : public IBlower {  
+class FakeBlower : public IBlower { 
   private:  
-    int _fanPin;  
+    int _fanPin; 
         
   public:
     int blowerCounter = 0;
     int startCounter = 0;
     int stopCounter = 0;
-    
     virtual void SetUp(int fanPin) 
-    {  
+    { 
       blowerCounter++;
-      _fanPin=fanPin;
     }
 
     virtual void StartBlower() 
