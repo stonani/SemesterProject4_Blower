@@ -49,11 +49,15 @@ class FakeHumiditySensor : public IHumiditySensor {
     int sensor2Counter = 0;
     int returnValueSensor1 = 1;
     int returnValueSensor2 = 0;
+    int sensor1Out=0;
+    int sensor2Out=0;
 
 
-  virtual void SetUp(int sensor1Out, int sensor2Out)
+  virtual void SetUp(int _sensor1Out, int _sensor2Out)
   {
     humidityCouner++;
+    sensor1Out = _sensor1Out;
+    sensor2Out = _sensor2Out;
   }    
 
   virtual float GetSensor1Data()
