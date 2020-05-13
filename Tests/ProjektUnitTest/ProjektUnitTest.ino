@@ -39,9 +39,9 @@ test(HumiditySensor2_FloatZero_OneCallRecieved) {
 void setup() {
   uut.SetUp(&myBlower,&myControlPanel,&myHumiditySensor,&myIndicator);
   uut.Loop();
-  delay(1000); // wait for stability on some boards to prevent garbage Serial
-  Serial.begin(9600); // ESP8266 default of 74880 not supported on Linux
-  while(!Serial); // for the Arduino Leonardo/Micro only
+  delay(1000);
+  Serial.begin(9600); 
+  while(!Serial); 
 }
 
 void loop() {
