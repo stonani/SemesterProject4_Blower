@@ -40,9 +40,11 @@ class FakeIndicator : public IIndicator {
   public:   
     int ONcounter = 0;
     int OFFcounter = 0;
+    int indicatorCounter = 0;
 
     virtual void SetUp(int pinOut)
     {
+      indicatorCounter++;
       _pinOut = pinOut;
     }
 
