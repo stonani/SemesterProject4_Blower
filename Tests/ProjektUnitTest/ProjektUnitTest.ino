@@ -10,9 +10,31 @@ FakeHumiditySensor myHumiditySensor;
 FakeIndicator myIndicator;
 SystemControl uut;
 void resetCounters();
-int N=0;
 
 
+///
+/// StartButtonTest
+///
+class StartbuttonPressed_StateTrue_StartBlowerTurnOnIndicator: public TestOnce {
+  protected:
+    void setup() override {
+      resetCounters();
+      uut.SetUp(&myBlower,&myControlPanel,&myHumiditySensor,&myIndicator);
+      myControlPanel.returnValueStart = true;
+      uut.Loop();
+    }
+      
+      
+     
+
+}; 
+
+testF(StartbuttonPressed_StateTrue_StartBlowerTurnOnIndicator, 1){
+
+   assertEqual(myBlower.startCounter,1);
+   assertEqual(myIndicator.ONcounter,1);
+  
+  }
 
 class StartButtonNotPressed_stateFalse_IsStartButtonPressedOneCall: public TestOnce {
   protected:
@@ -50,7 +72,14 @@ testF(StartButtonNotPressed_StateFalse_StopBlowerTurnOffIndicator,s) {
  
 }
 
+//////////////////////////////////////////
 
+
+
+
+///
+/// StopButtonTest
+///
 class StopButtonNotPressed_StateFalse_OneCallRecieved: public TestOnce {
   protected:
     void setup() override {
@@ -68,31 +97,34 @@ testF(StopButtonNotPressed_StateFalse_OneCallRecieved,s) {
   assertEqual(myControlPanel.stopCounter,1); 
 }
 
- 
-class StartbuttonPressed_StateTrue_StartBlowerTurnOnIndicator: public TestOnce {
+
+class StopButtonPressed_stateFalse_StopBlowerTurnOffIndicator: public TestOnce {
   protected:
     void setup() override {
       resetCounters();
-      uut.SetUp(&myBlower,&myControlPanel,&myHumiditySensor,&myIndicator);
-      myControlPanel.returnValueStart = true;
+     uut.SetUp(&myBlower,&myControlPanel,&myHumiditySensor,&myIndicator);
       uut.Loop();
     }
-      
-      
-     
+    
+   
 
 }; 
+testF(StopButtonPressed_stateFalse_StopBlowerTurnOffIndicator,s) {
+ 
+  assertEqual(myBlower.stopCounter,1);
+  assertEqual(myIndicator.OFFcounter,1); 
 
-testF(StartbuttonPressed_StateTrue_StartBlowerTurnOnIndicator, 1){
-
-   assertEqual(myBlower.startCounter,1);
-   assertEqual(myIndicator.ONcounter,1);
-  
-  }
-
+}
 
 
+////////////////////////////
 
+
+
+
+///
+///HumiditySensorTest
+///
 class HumiditySensor1_FloatZero_OneCallRecieved: public TestOnce {
   protected:
     void setup() override {
@@ -131,23 +163,72 @@ testF(HumiditySensor2_FloatZero_OneCallRecieved,s) {
 }
 
 
-class StopButtonPressed_stateFalse_StopBlowerTurnOffIndicator: public TestOnce {
+
+class HumiditySensor2_ButtonStateTrueSensor1LargerThanSensor2_ButtonStateTrueStartBlowerRecievedOneCall: public TestOnce {
   protected:
     void setup() override {
       resetCounters();
      uut.SetUp(&myBlower,&myControlPanel,&myHumiditySensor,&myIndicator);
+     myControlPanel.returnValueStart = true;
+
       uut.Loop();
     }
     
    
 
 }; 
-testF(StopButtonPressed_stateFalse_StopBlowerTurnOffIndicator,s) {
+testF(HumiditySensor2_ButtonStateTrueSensor1LargerThanSensor2_ButtonStateTrueStartBlowerRecievedOneCall,s1) {
  
-  assertEqual(myBlower.stopCounter,1);
-  assertEqual(myIndicator.OFFcounter,1); 
+  assertEqual(myBlower.startCounter,1);
+ 
 
 }
+
+
+class HumiditySensor2_ButtonStateTrueSensor1EqualSensor2_ButtonStateFalseStopBlowerRecievedOneCall: public TestOnce {
+  protected:
+    void setup() override {
+      resetCounters();
+     uut.SetUp(&myBlower,&myControlPanel,&myHumiditySensor,&myIndicator);
+     
+     myControlPanel.returnValueStart = true;
+     myHumiditySensor.returnValueSensor1 = 1;
+     myHumiditySensor.returnValueSensor2 = 1;
+
+     
+      uut.Loop();
+    }
+    
+   
+
+}; 
+testF(HumiditySensor2_ButtonStateTrueSensor1EqualSensor2_ButtonStateFalseStopBlowerRecievedOneCall,s1) {
+ 
+  assertEqual(myBlower.stopCounter,1);
+
+}
+
+
+class HumiditySensor2_ButtonStateTrueSensor1SmallerThanSensor2_ButtonStateFalseStopBlowerRecievedOneCall: public TestOnce {
+  protected:
+    void setup() override {
+      resetCounters();
+     uut.SetUp(&myBlower,&myControlPanel,&myHumiditySensor,&myIndicator);
+      myHumiditySensor.returnValueSensor1 = 0;
+     myHumiditySensor.returnValueSensor2 = 1;
+     myControlPanel.returnValueStart = true;
+      uut.Loop();
+    }
+    
+   
+
+}; 
+testF(HumiditySensor2_ButtonStateTrueSensor1SmallerThanSensor2_ButtonStateFalseStopBlowerRecievedOneCall,s1) {
+ 
+  assertEqual(myBlower.stopCounter,1);  
+
+}
+
 
 
 ///
@@ -158,11 +239,9 @@ class SetupCalled: public TestOnce {
   protected:
     void setup() override {
       resetCounters();
-     uut.SetUp(&myBlower,&myControlPanel,&myHumiditySensor,&myIndicator);
-     
+     uut.SetUp(&myBlower,&myControlPanel,&myHumiditySensor,&myIndicator);  
     }
-    
-   
+       
 
 }; 
 testF(SetupCalled,_controlpannelSetupCalled) {
@@ -191,7 +270,7 @@ void loop() {
 
 void resetCounters()
 {
-  N=5;
+  
       myBlower.blowerCounter=0;
       myBlower.startCounter=0;
       myBlower.stopCounter=0;
