@@ -77,10 +77,47 @@ testF(StartBlower_SetupSetsFanpin4StartBlowerCalled_pinValueIs4OutputvalueIs255,
 }
 
 
+///
+/// StopBlower test
+///
+class StopBlower_StopBlowerCalled_outPutRecievedOneCall: public TestOnce {
+  protected:
+    void setup() override {
+      resetCounters();
+           
+    }
+        
+}; 
+
+testF(StopBlower_StopBlowerCalled_outPutRecievedOneCall, t1){
+  uut.StopBlower();
+
+  assertEqual(myOutput.outputCounter,1);
+
+}
+
+class StopBlower_SetupSetsFanpin9StopBlowerCalled_pinValueIs9OutputvalueIs0: public TestOnce {
+  protected:
+    void setup() override {
+      resetCounters();
+          uut.SetUp(9); 
+    }
+        
+}; 
+
+testF(StopBlower_SetupSetsFanpin9StopBlowerCalled_pinValueIs9OutputvalueIs0, t1){
+  uut.StopBlower();
+
+  assertEqual(myOutput.outputValue,0);
+  assertEqual(myOutput.pinOutValue,9);
+
+}
 
 void resetCounters()
 {
- myOutput.outputCounter=0;
+ myOutput.outputCounter = 0;
+ myOutput.pinOutValue = 0;
+ myOutput.outputValue = 0;
 }
 
 void setup() {

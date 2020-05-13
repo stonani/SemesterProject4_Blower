@@ -16,16 +16,12 @@ class FakeInput : public IInput {
   public:   
     int inputCounter = 0;
     int pinInValue = 0;
-
-    int intputValue = 0;
-
+    int inputValue = 0;
     
     virtual int Input(int pinIn)  
     {   
       inputCounter++;
       pinInValue = pinIn;
-
-      return intputValue;
-
+      return inputValue;
     }
 };
