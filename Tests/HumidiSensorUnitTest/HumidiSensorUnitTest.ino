@@ -49,7 +49,7 @@ testF(SetUp_Sensor2OutValuesSet_PinOutValueAndOutputValueSet3And4, t2){
 
 
 
-class SensorData_ReturnValuesSet5And8_GetSensorDataReturn5And8: public TestOnce {
+class GetSensorData_ReturnValuesSet5And8_GetSensorDataReturn5And8: public TestOnce {
   protected:
     void setup() override {
       
@@ -60,7 +60,7 @@ class SensorData_ReturnValuesSet5And8_GetSensorDataReturn5And8: public TestOnce 
         
 }; 
 
-testF(SensorData_ReturnValuesSet5And8_GetSensorDataReturn5And8, t2){
+testF(GetSensorData_ReturnValuesSet5And8_GetSensorDataReturn5And8, t2){
  
    assertEqual(myHumiditySensor.GetSensor1Data(),5.0);
    assertEqual(myHumiditySensor.GetSensor2Data(),8.0);

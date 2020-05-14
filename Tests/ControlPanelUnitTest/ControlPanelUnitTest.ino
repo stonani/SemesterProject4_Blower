@@ -17,6 +17,11 @@ ControlPanel uut(&myOutput,&myInput);
 
 void resetCounters();
 
+
+///
+/// SetUp Test
+///
+
 class SetUp_SetUpCalledWith1111_OutputCalledTwice: public TestOnce {
   protected:
     void setup() override {
@@ -30,6 +35,10 @@ testF(SetUp_SetUpCalledWith1111_OutputCalledTwice, t1){
    assertEqual(myOutput.outputCounter,2);
   
 }
+
+
+
+
 
 class SetUp_SetUpCalledWith1114_OutputValueIs255AndPinOutValueIs4: public TestOnce {
   protected:
@@ -45,6 +54,8 @@ testF(SetUp_SetUpCalledWith1114_OutputValueIs255AndPinOutValueIs4, t1){
    assertEqual(myOutput.outputValue,255);
   
 }
+
+
 
 ///
 ///IsStartButtonPressed test

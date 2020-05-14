@@ -35,7 +35,7 @@ testF(SetUpAndTurnOn_SetUpMethodcalledPinOutSetTo5TurnOnCalled_OutPutPinValueIs5
 }
 
 
-class SetUpAndTurnOn_SetUpMethodcalledPinOutSetTo5TurnOnCalled_OutPutRecievedOneCall: public TestOnce {
+class TurnOn_SetUpMethodcalledPinOutSetTo5TurnOnCalled_OutPutRecievedOneCall: public TestOnce {
   protected:
     void setup() override {
       resetCounters();
@@ -44,7 +44,7 @@ class SetUpAndTurnOn_SetUpMethodcalledPinOutSetTo5TurnOnCalled_OutPutRecievedOne
         
 }; 
 
-testF(SetUpAndTurnOn_SetUpMethodcalledPinOutSetTo5TurnOnCalled_OutPutRecievedOneCall, t1){
+testF(TurnOn_SetUpMethodcalledPinOutSetTo5TurnOnCalled_OutPutRecievedOneCall, t1){
 
   uut.TurnOn();
 
