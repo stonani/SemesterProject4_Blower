@@ -21,25 +21,63 @@ SystemControl _systemControl;
 void resetCounters();
 int N=0;
 
-
-class ColPanelSetUp_2OutputCallsValueHigh: public TestOnce {
+///
+/// SetUp test - Output 
+///
+class ControlPanelSetUp_PowerTo2Pins: public TestOnce {
   protected:
     void setup() override {
       resetCounters();
       _systemControl.SetUp(&_blower,&_controlPanel,&_humiditySensor,&_indicator);
       _systemControl.Loop();
-    }
-                             
+    }                             
 };
 
-testF(ColPanelSetUp_2OutputCallsValueHigh,s) {
-  
+testF(ControlPanelSetUp_PowerTo2Pins,s) {  
   assertEqual(_output.outputCounter,2);
   assertEqual(_output.outputValue,255); 
 }
+//////////////////////////////////////////
 
-  
 
+///
+/// Button test -Input
+///
+class ControlPanalNoButtonPress_2InputCallsValueLow_StateFalse_LedBlowerOff: public TestOnce {
+  protected:
+    void setup() override {
+      resetCounters();
+      _systemControl.SetUp(&_blower,&_controlPanel,&_humiditySensor,&_indicator);
+      _systemControl.Loop();
+    }                             
+};
+
+testF(ControlPanalNoButtonPress_2InputCallsValueLow_StateFalse_LedBlowerOff,s) {  
+  assertEqual(_input.inputCounter,2);
+  assertEqual(_input.inputValue,0);
+
+  assertEqual(_blower.blowerCounter,0); 
+  assertEqual( _indicator.indicatorCounter,0); 
+}
+
+class ControlPanalBothButtonPress_2InputCallsValueHigh_StateFalse_LedBlowerOff: public TestOnce {
+  protected:
+    void setup() override {
+      resetCounters();
+      _input.inputValue =300;
+      _systemControl.SetUp(&_blower,&_controlPanel,&_humiditySensor,&_indicator);
+      _systemControl.Loop();
+    }                             
+};
+
+testF(ControlPanalBothButtonPress_2InputCallsValueHigh_StateFalse_LedBlowerOff,s) {  
+  assertEqual(_input.inputCounter,2);
+  assertEqual(_input.inputValue,300); 
+
+  assertEqual(_blower.blowerCounter,0); 
+  assertEqual( _indicator.indicatorCounter,0); 
+}
+//////////////////////////////////////////
 
 
 void setup() {
@@ -50,8 +88,7 @@ void setup() {
   while(!Serial); 
 }
 
-void loop() {
-   
+void loop() {   
     aunit::TestRunner::run();
     delay(50);
 }
@@ -62,11 +99,6 @@ void resetCounters()
       _blower.blowerCounter=0;
       _blower.startCounter=0;
       _blower.stopCounter=0;
-      _controlPanel.controlPanelCounter=0;
-      _controlPanel.startCounter=0;
-      _controlPanel.stopCounter=0;
-      _controlPanel.returnValueStart = false;
-      _controlPanel.returnValueStop = false;
       _humiditySensor.humidityCouner=0;
       _humiditySensor.sensor1Counter=0;
       _humiditySensor.sensor2Counter=0;
@@ -80,5 +112,5 @@ void resetCounters()
       _output.outputValue=0;
       _input.inputCounter=0;
       _input.pinInValue=0; 
-      _input.intputValue=0; 
+      _input.inputValue=0; 
 }
